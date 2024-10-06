@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        // Initialize stacks
         currSum = new Stack<>();
         operatorStack = new Stack<>();
 
@@ -113,9 +112,8 @@ public class MainActivity extends AppCompatActivity {
         currSum.push(curr);
         while (!operatorStack.isEmpty()) {
             char operator = operatorStack.pop();
-            int num2 = currSum.pop();
-            int num1 = currSum.pop();
-            int result = performOperation(num1, num2, operator);
+
+            int result = performOperation(operator);
             currSum.push(result);
         }
         int finalResult = currSum.pop();
@@ -123,7 +121,9 @@ public class MainActivity extends AppCompatActivity {
         curr = finalResult;
     }
 
-    private int performOperation(int num1, int num2, char operator) {
+    private int performOperation(char operator) {
+        int num2 = currSum.pop();
+        int num1 = currSum.pop();
         switch (operator) {
             case '+':
                 return num1 + num2;
